@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  min-height: 100vh;
+  background: #401c3f; /* Light background */
+}
+
+.container {
+  min-width: 700px;
+  width: 100%;
+}
+
+.wrapper {
+  border-radius: 5px;
+  border: 1px solid #e0e0e0; /* Light border */
+}
+
+.wrapper.text-input {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.text-input.to-text {
+  border-radius: 0px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.text-input textarea {
+  height: 250px;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background: #fafafa; /* Light gray background for textarea */
+  color: #333; /* Dark text for better readability */
+}
+
+.text-input textarea::placeholder {
+  color: #bbb; /* Light placeholder color */
+}
+
+.controls, li, .icons, .icons i {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls {
+  list-style: none;
+  padding: 12px 15px;
+}
+
+.controls.row.icons {
+  width: 50px;
+  color: #007bff; /* Light blue for icons */
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  justify-content: center;
+}
+
+.controls.row.from.icons {
+  padding-right: 15px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.controls.row select {
+  color: #007bff; /* Light blue text color for select */
+  border: none;
+  outline: none;
+  font-size: 18px;
+  background: none;
+  padding-left: 5px;
+}
+
+.text-input textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.controls .row select::-webkit-scrollbar {
+  width: 8px;
+}
+
+.text-input textarea::-webkit-scrollbar-track,
+.controls .row select::-webkit-scrollbar-track {
+  background: #fff; /* Light scrollbar track */
+}
+
+.text-input textarea::-webkit-scrollbar-thumb {
+  background: #007bff; /* Light blue glowing thumb */
+  border-radius: 8px;
+  box-shadow: 0 0 5px #007bff; /* Subtle glowing effect */
+}
+
+.controls .row select::-webkit-scrollbar-thumb {
+  background: #007bff; /* Light blue glowing thumb */
+  border-radius: 8px;
+  box-shadow: 0 0 5px #007bff; /* Subtle glowing effect */
+}
+
+.controls.exchange {
+  color: #007bff; /* Light blue color for exchange */
+  cursor: pointer;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.controls i:active {
+  transform: scale(0.9);
+}
+
+.container button {
+  width: 100%;
+  padding: 14px;
+  outline: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 17px;
+  border-radius: 5px;
+  background: #007bff; /* Light blue button */
+  box-shadow: 0 0 10px #007bff; /* Glowing blue effect */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container button:hover {
+  background: #0056b3; /* Darker blue on hover */
+  box-shadow: 0 0 15px #0056b3;
+}
+
+.container button:active {
+  transform: scale(0.95);
+}
