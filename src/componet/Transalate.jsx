@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import countries from "../data";
+import dialects from './dialects';
 
 const Translate = () => {
   const [fromText, setFromText] = useState("");
@@ -7,6 +8,7 @@ const Translate = () => {
   const [fromLang, setFromLang] = useState("en");
   const [toLang, setToLang] = useState("es");
   const [isTranslating, setIsTranslating] = useState(false);
+  const [useDialect, setUseDialect] = useState(false);  // New state to toggle between dialect and API
 
   // API Call function
   const translateText = useCallback(async () => {
@@ -14,6 +16,21 @@ const Translate = () => {
 
     setIsTranslating(true);
 
+    // If using dialect translation, skip the API call and do the dialect translation
+    if (useDialect) {
+      const match = dialects.find((entry) =>
+        entry.standard.toLowerCase() === fromText.toLowerCase()
+      );
+      if (match) {
+        setToText(match[toLang]);  // Use the dialect translation
+      } else {
+        setToText("No dialect translation found.");
+      }
+      setIsTranslating(false);
+      return;
+    }
+
+    // API Call for regular translation
     const url = "https://free-google-translator.p.rapidapi.com/external-api/free-google-translator";
 
     const options = {
@@ -41,19 +58,18 @@ const Translate = () => {
       console.log("Parsed API Response:", data);
 
       // Ensure correct key is used from response
-      // Ensure correct key is used from response
-if (data && data.translation) {
-  setToText(data.translation); // Correct key from API response
-} else {
-  setToText("Translation error: Invalid API response");
-}
+      if (data && data.translation) {
+        setToText(data.translation); // Correct key from API response
+      } else {
+        setToText("Translation error: Invalid API response");
+      }
     } catch (error) {
       console.error("Translation error:", error);
       setToText("Error in translation");
     } finally {
       setIsTranslating(false);
     }
-  }, [fromText, fromLang, toLang]);
+  }, [fromText, fromLang, toLang, useDialect]);
 
   // Auto-call translation when text changes
   useEffect(() => {
@@ -62,7 +78,7 @@ if (data && data.translation) {
     }, 1000);
 
     return () => clearTimeout(delay);
-  }, [fromText, fromLang, toLang, translateText]);
+  }, [fromText, fromLang, toLang, useDialect, translateText]);
 
   return (
     <div className="container">
@@ -93,6 +109,18 @@ if (data && data.translation) {
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Toggle for Dialect or Standard translation */}
+        <div className="dialect-toggle">
+          <label>
+            <input
+              type="checkbox"
+              checked={useDialect}
+              onChange={() => setUseDialect((prev) => !prev)}
+            />
+            Use Dialect Translation
+          </label>
         </div>
       </div>
     </div>
